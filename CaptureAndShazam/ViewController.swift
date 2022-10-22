@@ -61,11 +61,8 @@ class ViewController: NSViewController {
                         let item = NSMenuItem(title: app.applicationName, action: nil, keyEquivalent: "")
                         item.image = NSRunningApplication(processIdentifier: app.processID)?.icon
                         item.identifier = .init(rawValue: app.bundleIdentifier)
-                        if item.title.count == 0 {
-                            item.title = app.bundleIdentifier
-                        }
                         return item
-                    }.sorted(by: { $0.title < $1.title })
+                    }.filter { $0.title.count > 0 }.sorted(by: { $0.title < $1.title })
                     print("reloaded!")
                 }
             } catch {
